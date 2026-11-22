@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explorer — KumoKG Studio</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"></span>KumoKG <small>Studio</small></div>
+    <nav class="nav" aria-label="Studio pages">
+      <a href="/gate1" data-page="gate1">Gate 1 · Ontology</a>
+      <a href="/gate2" data-page="gate2">Gate 2 · Edge review</a>
+      <a href="/explorer" data-page="explorer">Explorer</a>
+    </nav>
+    <span class="ws-chip" id="ws-chip">workspace</span>
+    <span class="spacer"></span>
+    <button class="health-pill" id="health-pill" aria-haspopup="dialog" title="Graph health scorecard">loading…</button>
+    <button class="small" id="open-export">Export to database…</button>
+    <span class="badge" id="sse"></span>
+  </header>
+
+  <div class="explorer" id="layout">
+    <aside class="side" aria-label="Explorer controls">
+      <section>
+        <h3>Search &amp; multi-hop</h3>
+        <form id="search-form" class="row">
+          <input type="search" id="q" placeholder="Ask the graph…  ( / )" style="flex:1" aria-label="Question">
+        </form>
+        <div class="row">
+          <div class="toggle" id="mode">
+            <button type="button" data-mode="local" class="on">Local BM25</button>
+            <button type="button" data-mode="ppr">PPR multi-hop</button>
+          </div>
+          <span class="spacer"></span>
+          <button type="button" class="ghost small" id="clear-search">Clear</button>
+        </div>
+        <div id="results" class="stack"></div>
+      </section>
+      <section>
+        <div class="row"><h3>Colour by</h3><span class="spacer"></span>
+          <div class="toggle" id="colorby"><button type="button" data-c="label" class="on">Class</button><button type="button" data-c="community">Community</button></div>
+        </div>
+        <div id="labels" class="stack" style="gap:5px"></div>
+      </section>
+      <section>
+        <h3>Evidence modality</h3>
+        <div id="modalities" class="row wrap"></div>
+      </section>
+      <section class="small muted">
+        <div>Hover a node to focus its neighbourhood · click to pin and open provenance · drag to move · wheel to zoom · double-click background to fit.</div>
+      </section>
+    </aside>
+
+    <section class="stage" id="stage">
+      <canvas id="graph" aria-label="Knowledge graph canvas"></canvas>
+
+      <div class="float top-left" id="layout-bar" role="toolbar" aria-label="Layout">
+        <div class="toggle" id="layout-mode">
+          <button type="button" data-l="force" class="on">Force</button>
+          <button type="button" data-l="radial">Radial</button>
+          <button type="button" data-l="clusters">Clusters</button>
+        </div>
+        <button type="button" class="small ghost" id="fit">Fit view</button>
+        <button type="button" class="small ghost" id="edge-labels" aria-pressed="false">Edge labels</button>
+      </div>
+
+      <div class="float bottom-right" role="toolbar" aria-label="Zoom">
+        <span class="mono small muted" id="counts" style="padding:0 6px">0 nodes · 0 edges</span>
+        <button type="button" class="small ghost icon" id="zoom-out" aria-label="Zoom out">−</button>
+        <button type="button" class="small ghost icon" id="zoom-in" aria-label="Zoom in">+</button>
+      </div>
+
+      <div class="float timeline" id="timeline" role="group" aria-label="Time travel">
+        <button type="button" class="small icon" id="play" aria-label="Play timeline" title="Step through the timeline">▶</button>
+        <div class="stack" style="gap:0">
+          <span class="now-label" id="asof-label">Time travel</span>
+          <span class="tiny muted" id="asof-date"></span>
+        </div>
+        <div class="track" id="track"><div class="rail"><i id="rail-fill"></i></div></div>
+        <label class="check small" title="Show superseded / retracted edges as dashed lines"><input type="checkbox" class="switch" id="superseded"> superseded</label>
+      </div>
+
+      <aside class="drawer" id="drawer" aria-label="Provenance drawer" aria-hidden="true">
+        <div class="panel-head"><h2 id="drawer-title">Provenance</h2><span class="spacer"></span>
+          <button class="ghost small" id="close-drawer" aria-label="Close provenance">✕</button></div>
+        <div class="drawer-body" id="drawer-body"></div>
+      </aside>
+    </section>
+  </div>
+
+  <div class="modal-back hidden" id="export-modal" role="dialog" aria-modal="true" aria-labelledby="export-title">
+    <div class="modal">
+      <div class="panel-head"><h2 id="export-title">Export to a graph database</h2><span class="spacer"></span>
+        <button class="ghost small" id="close-export" aria-label="Close">✕</button></div>
+      <div class="panel-body stack">
+        <div class="adapter-grid" id="adapters"></div>
+        <div class="row wrap">
+          <label class="small muted" for="prov">provenance</label>
+          <select id="prov" class="mono"><option value="props">props</option><option value="nodes">nodes</option><option value="reified">reified</option></select>
+          <label class="small muted" for="pg-mode">postgres mode</label>
+          <select id="pg-mode" class="mono"><option>plain</option><option>age</option><option>pgvector</option></select>
+          <label class="small muted" for="nep-mode">neptune mode</label>
+          <select id="nep-mode" class="mono"><option>lpg</option><option>rdf</option></select>
+          <span class="spacer"></span>
+          <button class="primary" id="run-export">Export &amp; verify parity</button>
+        </div>
+        <div id="export-result"></div>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="/assets/explorer.js"></script>
+</body>
+</html>
