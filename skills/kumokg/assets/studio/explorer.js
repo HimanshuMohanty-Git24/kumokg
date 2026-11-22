@@ -18,6 +18,9 @@ let lastSearch = null;
 let playTimer = null;
 let reported = false;
 
+// replaceChildren() stringifies arrays and nulls ("[object HTMLDivElement]", "null"); flatten and skip empties like el() does.
+const fill = (node, ...children) => node.replaceChildren(...children.flat(Infinity).filter(c => c !== undefined && c !== null && c !== false));
+
 const reducedMotion = new URLSearchParams(location.search).has("snapshot") || matchMedia("(prefers-reduced-motion: reduce)").matches;
 const gc = new GraphCanvas($("#graph"), { onSelect: (s) => openDrawer(s), instant: reducedMotion });
 
@@ -170,7 +173,7 @@ async function runSearch(q, quiet = false) {
     const r = await api(`/api/search?${params}`);
     gc.setHighlight({ nodes: r.nodes.map(n => n.id).concat(r.seeds.map(s => s.id)), edges: r.edges.map(e => e.id), path: r.path_edges || [] });
     const names = new Map(view.nodes.map(n => [n.id, n.name]));
-    box.replaceChildren(
+    fill(box,
       el("div", { class: "row small muted" }, el("span", { class: "chip" }, r.mode), `${r.edges.length} facts · ~${r.tokens_estimate} tokens · ${r.latency_ms} ms`),
       (r.paths || []).length ? el("div", { class: "stack", style: { gap: "4px" } }, el("h3", {}, "Multi-hop paths"),
         r.paths.slice(0, 4).map(p => el("div", { class: "result mono small", onclick: () => gc.focus(p[p.length - 1]) }, p.map(id => names.get(id) || id).join(" → ")))) : null,
@@ -213,7 +216,7 @@ async function openDrawer(sel) {
             el("dt", {}, "id"), el("dd", { class: "mono small" }, d.id)));
     const incident = d.kind === "node" ? view.edges.filter(e => e.source === d.id || e.target === d.id) : [];
     const neighbours = incident.slice(0, 60);
-    body.replaceChildren(head,
+    fill(body, head,
       neighbours.length ? el("div", { class: "stack", style: { gap: "5px" } },
         el("h3", {}, neighbours.length < incident.length ? `Relations (${neighbours.length} of ${incident.length})` : `Relations (${incident.length})`),
         incident.length > gc.egoLabelMax ? el("div", { class: "muted small" }, "Hub node: predicates are listed here instead of on the canvas.") : null,
