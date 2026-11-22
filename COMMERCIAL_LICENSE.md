@@ -45,28 +45,41 @@ Not sure whether your use counts as commercial? Ask before you deploy; see [Cont
 
 ## License tiers
 
-> Fill in these tiers before publishing. The headings and fields below are placeholders.
+| | Individual / Startup | Team | Enterprise |
+| --- | --- | --- | --- |
+| **Price** | **US$149** per developer / year | **US$990** / year for up to 10 developers, + US$79 per extra developer | **Custom** |
+| **Developers** | 1 per license | up to 25 | unlimited |
+| **Support** | email, best effort | priority email, 2 business days | SLA, onboarding, private channel |
 
 ### Individual / Startup
 
-- **For:** `<e.g. solo developers, freelancers and startups below <REVENUE OR HEADCOUNT LIMIT>>`
-- **Includes:** `<e.g. commercial use by 1 developer or 1 product, updates for 12 months>`
-- **Support:** `<e.g. email support, best effort>`
-- **Price:** `<PRICE> / <PERIOD>`
+- **For:** solo developers, freelancers and startups with less than US$1M in annual revenue and no more than
+  5 people.
+- **Includes:** commercial use by 1 named developer across internal workflows, your own products and client
+  deliverables, plus 12 months of updates.
+- **Support:** email support, best effort.
+- **Price:** US$149 per developer per year.
 
 ### Team
 
-- **For:** `<e.g. companies with up to <N> developers using KumoKG>`
-- **Includes:** `<e.g. commercial use across internal workflows and <N> products, updates for 12 months>`
-- **Support:** `<e.g. priority email support, <RESPONSE TIME>>`
-- **Price:** `<PRICE> / <PERIOD>`
+- **For:** companies with up to 25 developers using KumoKG.
+- **Includes:** every commercial use listed above (internal workflows, commercial products and SaaS features,
+  consulting and agency deliverables) for up to 25 developers, plus 12 months of updates.
+- **Support:** priority email support with a reply within 2 business days.
+- **Price:** US$990 per year for up to 10 developers, plus US$79 per year for each additional developer
+  (up to 25).
 
 ### Enterprise
 
-- **For:** `<e.g. organizations that need company-wide use, SaaS embedding or redistribution rights>`
-- **Includes:** `<e.g. unlimited internal use, OEM/SaaS rights, custom terms, invoicing>`
-- **Support:** `<e.g. SLA, onboarding, private channel>`
-- **Price:** `Custom; contact us`
+- **For:** organizations that need company-wide use, more than 25 developers, OEM or SaaS embedding, or the
+  right to redistribute KumoKG.
+- **Includes:** unlimited developers, OEM / SaaS and redistribution rights, custom license terms, invoicing
+  and procurement paperwork (security questionnaires, vendor forms).
+- **Support:** an SLA, an onboarding session and a private support channel.
+- **Price:** custom; contact us for a quote.
+
+All prices are in US dollars, billed annually, and exclude applicable taxes. The signed agreement is
+authoritative if it differs from this page.
 
 ## How to get a commercial license
 

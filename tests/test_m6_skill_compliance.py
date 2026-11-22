@@ -207,6 +207,9 @@ def test_dual_license_polyform_noncommercial_plus_commercial():
               "Internal company or enterprise workflows", "Commercial products and SaaS", "Paid consulting and agency work",
               "Commercial distribution", "Academic and public research", "Non-commercial organizations"):
         assert s in com_root, s
+    assert not re.search(r"<(e\.g\.|PRICE|PERIOD|N>|YOUR_)", com_root), "unfilled placeholder in COMMERCIAL_LICENSE.md"
+    for price in ("US$149", "US$990", "US$79"):
+        assert price in com_root, price
     proj = tomllib.loads((SKILL_DIR / "pyproject.toml").read_text(encoding="utf-8"))["project"]
     assert proj["license"] == "PolyForm-Noncommercial-1.0.0" and set(proj["license-files"]) == {"LICENSE", "COMMERCIAL_LICENSE.md"}
     assert not any("License ::" in c for c in proj.get("classifiers", [])), "PEP 639: no license classifiers with an SPDX expression"
