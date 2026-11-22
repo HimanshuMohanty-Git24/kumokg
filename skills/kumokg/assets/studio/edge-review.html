@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gate 2 · Edge &amp; Evidence Review — KumoKG Studio</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"></span>KumoKG <small>Studio</small></div>
+    <nav class="nav" aria-label="Studio pages">
+      <a href="/gate1" data-page="gate1">Gate 1 · Ontology</a>
+      <a href="/gate2" data-page="gate2">Gate 2 · Edge review</a>
+      <a href="/explorer" data-page="explorer">Explorer</a>
+    </nav>
+    <span class="ws-chip" id="ws-chip">workspace</span>
+    <span class="spacer"></span>
+    <span class="badge" id="sse"></span>
+  </header>
+
+  <main class="g2" id="app">
+    <section class="panel g2-head">
+      <div class="panel-head" style="border-bottom:0; padding-bottom:6px">
+        <h1>Edge &amp; evidence review</h1>
+        <div class="progress" id="progress" aria-hidden="true"><i></i><b></b></div>
+        <span class="small" id="progress-label"></span>
+        <span class="small muted" id="progress-caption"></span>
+        <span class="spacer"></span>
+        <span class="tiny muted">
+          <kbd>A</kbd> approve <kbd>R</kbd> reject <kbd>E</kbd> edit <kbd>J</kbd>/<kbd>K</kbd> next/prev <kbd>Enter</kbd> commit
+        </span>
+      </div>
+      <div class="toolbar" style="padding:0 16px 12px">
+        <input type="search" id="f-text" placeholder="Filter entities, predicates, quotes…" style="width:260px" aria-label="Filter">
+        <select id="f-pred" class="mono" aria-label="Predicate filter"></select>
+        <select id="f-doc" aria-label="Source filter"></select>
+        <select id="f-mod" class="mono" aria-label="Evidence modality filter"></select>
+        <label class="small muted row" style="gap:6px">min confidence <input type="range" id="f-conf" min="0" max="1" step="0.05" value="0" style="width:110px"><span id="f-conf-v" class="mono">0.00</span></label>
+        <div class="row" style="margin-left:auto">
+          <button id="bulk" class="ok" title="Approve every proposal currently visible in this tab">Bulk approve filtered</button>
+          <button id="commit" class="primary">Commit decisions <kbd>Enter</kbd></button>
+        </div>
+      </div>
+    </section>
+
+    <div class="workbench">
+      <section class="panel pane" aria-label="Review queue">
+        <div class="tabs" role="tablist" id="tabs"></div>
+        <div class="pane-scroll" id="list" role="listbox" aria-label="Proposals"></div>
+      </section>
+      <section class="panel pane" aria-label="Evidence inspector">
+        <div class="pane-scroll" id="inspector" aria-live="polite">
+          <div class="empty">Select a proposal to inspect its evidence.</div>
+        </div>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="/assets/gate2.js"></script>
+</body>
+</html>
